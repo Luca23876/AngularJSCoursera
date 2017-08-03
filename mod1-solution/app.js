@@ -11,14 +11,13 @@
     $scope.itemCalculator = function () {
       var str = $scope.name;
       var strLenght = str.split(",");
-      if(strLenght.length <= 3 && strLenght.length > 0){
+      if(str === "") {
+        $scope.result = "Please enter data";
+      }else if(strLenght.length <= 3 && strLenght.length > 0){
         $scope.result = "enjoy";
-      }else if (strLenght.length > 3) {
-        $scope.result = "too much";
       }else{
-        $scope.result = "Please enter Data";
+        $scope.result = "too much";
       };
-      console.log(strLenght.length);
     };
   };
 
