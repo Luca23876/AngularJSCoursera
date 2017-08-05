@@ -12,15 +12,15 @@
     quantity: "10"
     },
     {
-    name: "drinks",
+    name: "Drinks",
     quantity: "10"
     },
     {
-    name: "shrimp",
+    name: "Shrimp",
     quantity: "10"
     },
     {
-    name: "blah",
+    name: "Ice Cream tub",
     quantity: "100"
     }
   ];
