@@ -1,10 +1,10 @@
 <!doctype html>
-<html ng-app="shoppingListCheckOff">
+<html ng-app="shoppingListCheckOffApp">
   <head>
     <title>Shopping List Check Off</title>
     <meta charset="utf-8">
     <script src="angular.min.js"></script>
-    <script src="app.js"></script>ss">
+    <script src="app.js"></script>
   </head>
 <body>
   <div>
@@ -13,25 +13,21 @@
   <div>
 
     <!-- To Buy List -->
-    <div ng-controller="toBuyList as buy">
+    <div ng-controller="toBuyListController as buy">
      <h2>To Buy:</h2>
      <ul>
-       <li>Buy 10 cookies <button ng-click=""><span></span> Bought</button></li>
-       <li>Buy 10 cookies <button><span></span> Bought</button></li>
-       <li>Buy 10 cookies <button><span></span> Bought</button></li>
-       <li>Buy 10 cookies <button><span></span> Bought</button></li>
-       <li>Buy 10 cookies <button><span></span> Bought</button></li>
+       <li ng-repeat="item in buy.shoppingList">Buy {{item.name}} {{item.quantity}}(s)<button ng-click="buy.shoppingListBought($index);" ng-click="myVar = true"><span></span> Bought</button></li>
      </ul>
-     <div>Everything is bought!</div>
+     <div  ng-if ="buy.shoppingList === []">Everything is bought!</div>
     </div>
 
     <!-- Already Bought List -->
-    <div ng-controller="boughtList as bought">
+    <div ng-controller="boughtListController as bought">
      <h2>Already Bought:</h2>
      <ul>
-       <li ng-repeat="items in $scope.boughtItems">Bought{{}}</li>
+       <li ng-repeat="item in bought.data">Bought {{item.name}} {{item.quantity}}(s)</li>
      </ul>
-     <div>Nothing bought yet.</div>
+     <div ng-if="bought.data === []">Nothing bought yet.</div>
     </div>
   </div>
 </div>
