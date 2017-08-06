@@ -18,7 +18,7 @@
      <ul>
        <li ng-repeat="item in buy.shoppingList">Buy {{item.quantity}} {{item.name}}(s)<button ng-click="buy.shoppingListBought($index);" ng-click="myVar = true"><span></span> Bought</button></li>
      </ul>
-     <div  ng-if ="buy.shoppingList === []">Everything is bought!</div>
+     <div  ng-if ="!buy.shoppingList.length">Everything is bought!</div>
     </div>
 
     <!-- Already Bought List -->
@@ -27,7 +27,7 @@
      <ul>
        <li ng-repeat="item in bought.data">Bought {{item.quantity}} {{item.name}}(s)</li>
      </ul>
-     <div ng-if="bought.data === []">Nothing bought yet.</div>
+     <div ng-if="!bought.data.length">Nothing bought yet.</div>
     </div>
   </div>
 </div>
