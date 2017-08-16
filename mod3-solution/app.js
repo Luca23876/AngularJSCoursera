@@ -3,26 +3,33 @@
 
   angular.module('narrowDownMenuApp', [])
   .controller('narrowItDownController', narrowItDownController)
-  .service('MenuSearchService', MenuSearchService);
+  .service('MenuSearchService', MenuSearchService)
   .directive('searchResult', searchResultDirective);
 
   function searchResultDirective() {
     var ddo = {
-      templateUrl: 'searchResult.html'
+      templateUrl: 'searchResult.html',
+      controller: searchResultDirectiveController,
+      controllerAs: 'list',
+      bindToController: true
     };
 
     return ddo
+  }
+  searchResultDirectiveController.$inject = ['MenuSearchService'];
+  function searchResultDirectiveController(MenuSearchService) {
+    var result = this;
+    result.foundArray = [];
+    result.message = "";
+    var found = MenuSearchService.getFoundItems(result.foundArray, result.message);
   }
 
   narrowItDownController.$inject = ['MenuSearchService'];
   function narrowItDownController(MenuSearchService) {
     var menu = this;
     menu.input = "";
-    menu.message = "";
-    menu.foundArray = [];
     menu.searchX = function(name) {
       MenuSearchService.getMatchedMenuItems(name, menu.input);
-      MenuSearchService.getFoundItems(menu.foundArray, menu.message);
     };
     var promise = MenuSearchService.getMatchedMenuItems();
   }
@@ -59,9 +66,9 @@
 
       });
       return deferred.promise;
-    }
+    };
     service.getFoundItems = function (foundArray, message) {
-      var searchResult = MenuSearchService.getMatchedMenuItems(name, searchTerm);
+      var searchResult = service.getMatchedMenuItems(name, searchTerm);
       $q.all([searchResult]).
       then(function (foundItems) {
         var foundArray = foundItems;
