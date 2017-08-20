@@ -8,36 +8,45 @@
 
   function searchResultDirective() {
     var ddo = {
+      scope: {
+        display: '<'
+      },
       templateUrl: 'searchResult.html',
-      controller: searchResultDirectiveController,
-      controllerAs: 'list',
-      bindToController: true
+      // // controller: searchResultDirectiveController,
+      // controllerAs: 'list',
+      // bindToController: true
     };
 
     return ddo
   }
-  searchResultDirectiveController.$inject = ['MenuSearchService'];
-  function searchResultDirectiveController(MenuSearchService) {
-    var result = this;
-    result.foundArray = [];
-    result.message = "";
-    var found = MenuSearchService.getFoundItems(result.foundArray, result.message);
-  }
+  // searchResultDirectiveController.$inject = ['MenuSearchService'];
+  // function searchResultDirectiveController(MenuSearchService) {
+  //   var result = this;
+  //   var displayResult = [];
+  //   result.display = function () {
+  //       displayResult = MenuSearchService.getFoundItems();
+  //       console.log(displayResult);
+  //   };
+  // };
 
   narrowItDownController.$inject = ['MenuSearchService'];
   function narrowItDownController(MenuSearchService) {
     var menu = this;
     menu.input = "";
+    menu.displayResult = [];
     menu.searchX = function(name) {
-      MenuSearchService.getMatchedMenuItems(name, menu.input);
+      MenuSearchService.FoundItems(menu.input, name);
     };
-    var promise = MenuSearchService.getMatchedMenuItems();
+    menu.display = MenuSearchService.getFoundItems(menu.displayResult);
+   console.log(menu.display);
   }
 
 
 
   MenuSearchService.$inject = ['$http', '$q'];
   function MenuSearchService($http, $q) {
+    var foundArray = [];
+    var message = "";
     var service = this;
     service.getMatchedMenuItems = function(name, searchTerm) {
       var deferred = $q.defer();
@@ -52,8 +61,7 @@
           var items = result.data;
           for (var i = 0; i < items.menu_items.length; i++) {
             if (searchTerm === ""){
-              result.message = "Please enter search term"
-              deferred.reject(result);
+              deferred.reject(["Please enter search term"]);
               i = items.menu_items.length;
             }
             else if (items.menu_items[i].name.toLowerCase().indexOf(searchTerm.toLowerCase()) ==! -1){
@@ -67,15 +75,25 @@
       });
       return deferred.promise;
     };
-    service.getFoundItems = function (foundArray, message) {
+    service.FoundItems = function (searchTerm, name) {
       var searchResult = service.getMatchedMenuItems(name, searchTerm);
       $q.all([searchResult]).
       then(function (foundItems) {
-        var foundArray = foundItems;
+         foundArray = foundItems;
       }).
       catch(function (errorResponse) {
-        var message = errorResponse.message;
+         message = errorResponse;
+         console.log(message);
       });
+    };
+    service.getFoundItems = function (displayArray) {
+      if (foundArray.length ==! 0) {
+        displayArray = foundArray;
+        console.log("sjsfkj");
+      }else {
+        displayArray = message;
+      };
+      return displayArray
     };
   };
 })();
