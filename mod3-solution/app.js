@@ -8,13 +8,10 @@
 
   function searchResultDirective() {
     var ddo = {
-      scope: {
-        display: '<'
-      },
       templateUrl: 'searchResult.html',
-      // // controller: searchResultDirectiveController,
-      // controllerAs: 'list',
-      // bindToController: true
+      scope: {
+        items: '<'
+      },
     };
 
     return ddo
@@ -35,18 +32,14 @@
     menu.input = "";
     menu.displayResult = [];
     menu.searchX = function(name) {
-      MenuSearchService.FoundItems(menu.input, name);
+      menu.displayResult = MenuSearchService.FoundItems(menu.input, name);
     };
-    menu.display = MenuSearchService.getFoundItems(menu.displayResult);
-   console.log(menu.display);
   }
 
 
 
   MenuSearchService.$inject = ['$http', '$q'];
   function MenuSearchService($http, $q) {
-    var foundArray = [];
-    var message = "";
     var service = this;
     service.getMatchedMenuItems = function(name, searchTerm) {
       var deferred = $q.defer();
@@ -61,7 +54,7 @@
           var items = result.data;
           for (var i = 0; i < items.menu_items.length; i++) {
             if (searchTerm === ""){
-              deferred.reject(["Please enter search term"]);
+              deferred.reject("Please enter search term");
               i = items.menu_items.length;
             }
             else if (items.menu_items[i].name.toLowerCase().indexOf(searchTerm.toLowerCase()) ==! -1){
@@ -77,23 +70,23 @@
     };
     service.FoundItems = function (searchTerm, name) {
       var searchResult = service.getMatchedMenuItems(name, searchTerm);
+      var foundArray = [];
       $q.all([searchResult]).
       then(function (foundItems) {
-         foundArray = foundItems;
+         foundArray.push(foundItems[0][0]);
       }).
       catch(function (errorResponse) {
-         message = errorResponse;
-         console.log(message);
+         foundArray.push(errorResponse);
       });
+      return foundArray;
     };
-    service.getFoundItems = function (displayArray) {
-      if (foundArray.length ==! 0) {
-        displayArray = foundArray;
-        console.log("sjsfkj");
-      }else {
-        displayArray = message;
-      };
-      return displayArray
-    };
+    // service.getFoundItems = function (displayArray) {
+    //   if (foundArray.length ==! 0) {
+    //     displayArray = foundArray;
+    //   }else {
+    //     displayArray = message;
+    //   };
+    //   return displayArray
+    // };
   };
 })();
