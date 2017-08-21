@@ -16,15 +16,6 @@
 
     return ddo
   }
-  // searchResultDirectiveController.$inject = ['MenuSearchService'];
-  // function searchResultDirectiveController(MenuSearchService) {
-  //   var result = this;
-  //   var displayResult = [];
-  //   result.display = function () {
-  //       displayResult = MenuSearchService.getFoundItems();
-  //       console.log(displayResult);
-  //   };
-  // };
 
   narrowItDownController.$inject = ['MenuSearchService'];
   function narrowItDownController(MenuSearchService) {
@@ -33,6 +24,7 @@
     menu.displayResult = [];
     menu.searchX = function(name) {
       menu.displayResult = MenuSearchService.FoundItems(menu.input, name);
+      console.log(menu.displayResult);
     };
   }
 
@@ -73,20 +65,14 @@
       var foundArray = [];
       $q.all([searchResult]).
       then(function (foundItems) {
-         foundArray.push(foundItems[0][0]);
+         foundArray = foundItems[0].slice(0);
+         foundArray.reverse();
       }).
       catch(function (errorResponse) {
          foundArray.push(errorResponse);
       });
+      console.log(foundArray);
       return foundArray;
     };
-    // service.getFoundItems = function (displayArray) {
-    //   if (foundArray.length ==! 0) {
-    //     displayArray = foundArray;
-    //   }else {
-    //     displayArray = message;
-    //   };
-    //   return displayArray
-    // };
   };
 })();
