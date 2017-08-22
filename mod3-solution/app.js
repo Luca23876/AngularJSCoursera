@@ -20,11 +20,20 @@
   narrowItDownController.$inject = ['MenuSearchService'];
   function narrowItDownController(MenuSearchService) {
     var menu = this;
+    menu.page = "";
     menu.input = "";
     menu.displayResult = [];
     menu.searchX = function(name) {
       menu.displayResult = MenuSearchService.FoundItems(menu.input, name);
-      console.log(menu.displayResult);
+      menu.displayResult.$promise
+      .then(function(foundArray) {
+        menu.page = foundArray;
+        console.log(menu.page[0]);
+        console.log(menu.displayResult);
+      }).catch(function(errorResponse) {
+        console.log("ERROR");
+        console.log(errorResponse);
+      });
     };
   }
 
@@ -61,18 +70,16 @@
       return deferred.promise;
     };
     service.FoundItems = function (searchTerm, name) {
-      var searchResult = service.getMatchedMenuItems(name, searchTerm);
-      var foundArray = [];
-      $q.all([searchResult]).
-      then(function (foundItems) {
-         foundArray = foundItems[0].slice(0);
-         foundArray.reverse();
-      }).
-      catch(function (errorResponse) {
-         foundArray.push(errorResponse);
-      });
-      console.log(foundArray);
-      return foundArray;
-    };
+    var foundArray = [];
+    var searchPromise = service.getMatchedMenuItems(name, searchTerm);
+    foundArray.$promise = searchPromise
+      .then(function (foundItems) {
+        return $q.resolve(foundItems)
+    })
+      .catch(function (errorResponse) {
+        return $q.reject(errorResponse);
+    });
+    return foundArray;
+};
   };
 })();
