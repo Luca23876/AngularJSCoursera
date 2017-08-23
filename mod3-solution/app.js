@@ -28,11 +28,11 @@
       menu.displayResult.$promise
       .then(function(foundArray) {
         menu.page = foundArray;
-        console.log(menu.page[0]);
-        console.log(menu.displayResult);
+        return menu.page;
       }).catch(function(errorResponse) {
         console.log("ERROR");
-        console.log(errorResponse);
+        menu.page = errorResponse;
+        return menu.page;
       });
     };
   }
@@ -55,7 +55,7 @@
           var items = result.data;
           for (var i = 0; i < items.menu_items.length; i++) {
             if (searchTerm === ""){
-              deferred.reject("Please enter search term");
+              deferred.reject(["Nothing found"]);
               i = items.menu_items.length;
             }
             else if (items.menu_items[i].name.toLowerCase().indexOf(searchTerm.toLowerCase()) ==! -1){
