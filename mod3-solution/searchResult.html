@@ -1,7 +1,6 @@
 <ol>
   <li ng-repeat="items in items track by $index">
-    {{items}}
-    <button ng-click="menu.badRemove($index);">Bad Remove Item</button>
-    <button ng-click="menu.onRemove({index: $index});">Remove Item</button>
+    {{items.name}}, {{items.shortName}}, {{items.description}}
+    <button ng-click="onRemove({index: $index}, items);">Don't want this one!</button>
   </li>
 </ol>
