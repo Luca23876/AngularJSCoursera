@@ -10,7 +10,9 @@
     var ddo = {
       templateUrl: 'searchResult.html',
       scope: {
-        items: '<'
+        items: '<',
+        badRemove: '=',
+        onRemove: '&'
       },
     };
 
@@ -49,7 +51,8 @@
         method: "GET",
         url: ('https://davids-restaurant.herokuapp.com/menu_items.json'),
         params: {
-          category: name
+          category: name,
+          category: short_name
         }
       }).then(function (result) {
           var items = result.data;
