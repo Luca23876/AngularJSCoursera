@@ -16,11 +16,13 @@
     <div>
       <button ng-click="menu.searchX()">Narrow It Down For Me!</button>
     </div>
-    <div ng-if="menu.nPage.length">
-      <p>Nothing found</p>
+    <div ng-hide="!menu.displayResult">
+      <div ng-if="!menu.displayResult.length">
+        <p>Nothing found</p>
+      </div>
     </div>
     <search-result
-      items="menu.page"
+      items="menu.displayResult"
       on-remove="menu.removeItem(index)"></search-result>
   </div>
 
