@@ -7,21 +7,21 @@
   MenuDataService = function($http) {
     var service = this;
     service.getAllCategory = function() {
-      var result =  $http({
+      var categoriesResult =  $http({
         method: "GET",
-        url: ('https://davids-restaurant.herokuapp.com/menu_items.json'),
+        url: ('https://davids-restaurant.herokuapp.com/categories.json'),
       });
-      return result;
+      return categoriesResult;
     }
     service.getItemsForCategory = function(categoryShortName) {
-      var result =  $http({
+      var itemsResult =  $http({
         method: "GET",
-        url: ('https://davids-restaurant.herokuapp.com/menu_items.json'),
-        params{
+        url: (' https://davids-restaurant.herokuapp.com/menu_items.json?category='),
+        params: {
           category: categoryShortName
         }
       });
-      return result;
+      return itemsResult;
     }
   };
 

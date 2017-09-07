@@ -1,5 +1,6 @@
 (function () {
-  'use strict'
-  angular.module('data', ['MenuDataService'])
+'use strict';
+
+angular.module('data', ['MenuDataService'])
 
 });

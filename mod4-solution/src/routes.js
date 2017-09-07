@@ -1,16 +1,25 @@
-(function() {
-  'use strict'
-  angular.module('MenuApp')
-  .config(RoutesConfig);
+(function () {
+'use strict';
 
-  RoutesConfig.$inject = ['$stateProvider', '$urlRouterProvider'];
-  function RoutesConfig($stateProvider, $urlRouterProvider){
-    $urlRouterProvider.otherwise('/');
+angular.module('MenuAppX')
+.config(RoutesConfig);
 
-    $stateProvider
-    .state(
-      url: '/',
-      templateUrl: 'src/<MenuApp/templates/home.template.html'
-    )
-  };
+RoutesConfig.$inject = ['$stateProvider', '$urlRouterProvider'];
+function RoutesConfig($stateProvider, $urlRouterProvider) {
+  $urlRouterProvider.otherwise('/');
+
+  $stateProvider
+  .state('home', {
+    url: '/',
+    templateUrl: 'src/MenuApp/template/home.template.html'
+  })
+  .state('category', {
+    url: '/menuCategory',
+    templateUrl: 'src/MenuApp/template/categories.template.html'
+  })
+  .state('items', {
+    url: '/menuItems',
+    templateUrl: 'src/MenuApp/template/items.template.html'
+  })
+}
 })();
