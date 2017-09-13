@@ -1,14 +1,13 @@
 (function () {
 'use strict';
 
-angular.module('categoriesX')
+angular.module('MenuAppX')
 .controller('categoriesXController', categoriesXController);
 
 
-categoriesController.$inject = ['MenuDataService', 'categoriesResult'];
-function categoriesController(MenuDataService, categoriesResult) {
-  var ctrl = this;
-  ctrl.categoriesR = categoriesResult;
-}
-
+categoriesXController.$inject = ['categoriesResult'];
+function categoriesXController(categoriesResult) {
+  var categoriesX = this;
+  categoriesX.cat = categoriesResult;
+};
 })();
