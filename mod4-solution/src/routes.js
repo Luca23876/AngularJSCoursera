@@ -25,12 +25,12 @@ function RoutesConfig($stateProvider, $urlRouterProvider) {
   })
 
   .state('items', {
-    url: '/menuItems',
+    url: '/menuItems/{itemId}',
     templateUrl: 'src/MenuApp/template/items.template.html',
     controller: 'itemsXController as itemsX',
     resolve: {
-      itemsResult: ['MenuDataService', function (MenuDataService) {
-        return MenuDataService.getItemsForCategory();
+      itemsResult: ['MenuDataService', function (MenuDataService, itemId) {
+        return MenuDataService.getItemsForCategory(itemId);
       }]
     }
   })

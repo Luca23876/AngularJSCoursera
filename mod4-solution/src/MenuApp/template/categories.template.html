@@ -1,6 +1,6 @@
-<a ui-sref="home">This Page works</a>
+<a ui-sref="items">This Page works</a>
 <ol>
-  <li ng-repeat="item in categoriesX.categories">
+  <li ng-repeat="item in categoriesX.categories"  ui-sref="items({itemId: categoriesX.categories[$index].short_name})">
     {{ categoriesX.categories[$index].name }}
   </li>
 </ol>
