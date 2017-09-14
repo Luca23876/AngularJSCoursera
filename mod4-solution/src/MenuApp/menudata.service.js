@@ -1,10 +1,11 @@
 (function () {
-  'use strict'
-  angular.module('data')
+  'use strict';
+
+  angular.module('MenuAppX')
   .service('MenuDataService', MenuDataService);
 
   MenuDataService.$inject = ['$http', '$q', '$timeout'];
-  MenuDataService = function($http, $q, $timeout) {
+  function MenuDataService($http, $q, $timeout) {
     var service = this;
 
     service.getAllCategory = function() {
@@ -16,6 +17,7 @@
       $timeout(function () {
         deferred.resolve(categoriesResult);
       }, 800);
+      console.log(deferred.promise);
       return deferred.promise;
     }
     // service.getItemsForCategory = function(categoryShortName) {
@@ -31,5 +33,7 @@
     //   deferred.resolve(itemsResult);
     // }
   };
-
-});
+  angular.module('data')
+  .service('MenuDataService', MenuDataService);
+    MenuDataService.$inject = ['$http', '$q', '$timeout'];
+})();
