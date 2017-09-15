@@ -27,12 +27,8 @@ function RoutesConfig($stateProvider, $urlRouterProvider) {
   .state('items', {
     url: '/menuItems/{itemId}',
     templateUrl: 'src/MenuApp/template/items.template.html',
+    params: { itemId: null },
     controller: 'itemsXController as itemsX',
-    resolve: {
-      itemsResult: ['MenuDataService', function (MenuDataService, itemId) {
-        return MenuDataService.getItemsForCategory(itemId);
-      }]
-    }
-  })
+  });
 }
 })();

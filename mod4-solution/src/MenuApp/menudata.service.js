@@ -18,6 +18,7 @@
       $timeout(function () {
         deferred.resolve(categoriesResult);
       }, 800);
+      console.log(deferred.promise);
       return deferred.promise;
     }
     service.getItemsForCategory = function(itemId) {
@@ -25,9 +26,8 @@
       console.log(itemId);
       var itemsResult =  $http({
         method: "GET",
-        url: ('https://davids-restaurant.herokuapp.com/menu_items.json?category=L'),
-      });
-      $timeout(function () {
+        url: (categoryBasePath + itemId),
+      }).then(function (itemsResult) {
         deferred.resolve(itemsResult);
       }, 800);
       console.log(deferred.promise);

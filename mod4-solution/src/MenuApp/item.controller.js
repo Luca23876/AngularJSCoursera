@@ -5,10 +5,13 @@ angular.module('MenuAppX')
 .controller('itemsXController', itemsXController);
 
 
-itemsXController.$inject = ['MenuDataService', 'itemsResult'];
-function itemsXController(MenuDataService, itemsResult) {
+itemsXController.$inject = ['MenuDataService', '$stateParams'];
+function itemsXController(MenuDataService, $stateParams) {
   var itemsX = this;
-  itemsX.categoryItems = itemsResult.data.menu_items;
+  console.log($stateParams);
+  itemsX.stuff = MenuDataService.getItemsForCategory($stateParams.itemId);
+  itemsX.categoryItems = itemsX.stuff.value;
+  console.log(itemsX.categoryItems);
 }
 
 })();
