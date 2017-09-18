@@ -8,8 +8,7 @@ angular.module('MenuAppX')
 itemsXController.$inject = ['MenuDataService', 'itemsResult'];
 function itemsXController(MenuDataService, itemsResult) {
   var itemsX = this;
-  itemsX.categoryItems = itemsResult.data;
-  console.log(itemsX.categoryItems[0]);
+  itemsX.categoryItems = itemsResult.data.menu_items;
 }
 
 })();
