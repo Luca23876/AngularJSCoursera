@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  angular.module('MenuAppX')
+  angular.module('data')
   .service('MenuDataService', MenuDataService);
 
   MenuDataService.$inject = ['$http', '$q', '$timeout'];
@@ -17,23 +17,22 @@
       $timeout(function () {
         deferred.resolve(categoriesResult);
       }, 800);
+      return deferred.promise;
+    }
+    service.getItemsForCategory = function(categoryShortName) {
+      var deferred = $q.defer();
+      var itemsResult =  $http({
+        method: "GET",
+        url: (' https://davids-restaurant.herokuapp.com/menu_items.json?category='),
+        params: {
+          category: categoryShortName
+        }
+      });
+      $timeout(function () {
+        deferred.resolve(itemsResult);
+      }, 800);
       console.log(deferred.promise);
       return deferred.promise;
     }
-    // service.getItemsForCategory = function(categoryShortName) {
-    //   var deferred = $q.defer();
-    //   var itemsResult =  $http({
-    //     method: "GET",
-    //     url: (' https://davids-restaurant.herokuapp.com/menu_items.json?category='),
-    //     params: {
-    //       category: categoryShortName
-    //     }
-    //   });
-    //   console.log(itemsResult);
-    //   deferred.resolve(itemsResult);
-    // }
   };
-  angular.module('data')
-  .service('MenuDataService', MenuDataService);
-    MenuDataService.$inject = ['$http', '$q', '$timeout'];
 })();

@@ -8,6 +8,8 @@ angular.module('MenuAppX')
 categoriesXController.$inject = ['categoriesResult'];
 function categoriesXController(categoriesResult) {
   var categoriesX = this;
-  categoriesX.cat = categoriesResult;
+  categoriesX.categories = categoriesResult.data;
+  categoriesX.short_name = categoriesX.categories.short_name
+  console.log(categoriesX.categories[0].name);
 };
 })();
