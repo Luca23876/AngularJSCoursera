@@ -8,18 +8,24 @@
       <input type="text" class="textcolor-black" name="firstname" placeholder="Your First Name"
         ng-model="reg.firstname"
         required>
+        <span ng-if="regform.firstname.$invalid && regform.firstname.$touched">
+          Must enter a first name.
+        </span>
         <p>Example: John</p>
         <br>
         <input type="text" class="textcolor-black" name="lastname" placeholder="Your Last Name"
           ng-model="reg.lastname"
           required>
+          <span ng-if="regform.lastname.$invalid && regform.lastname.$touched">
+            Must enter a last name.
+          </span>
           <p>Example: Doe</p>
           <br>
         <input type="email" class="textcolor-black" name="email" placeholder="Email"
           ng-model="reg.email"
           required>
-          <span ng-if="regForm.email.$invalid && regForm.email.$touched">
-            Must be a valid email address: example@example.com format
+          <span ng-if="regform.email.$invalid && regform.email.$touched">
+            Must be a valid email address: example@handler.com format
           </span>
           <p>Example: john@example.com</p>
           <br>
@@ -28,7 +34,7 @@
           required
           ng-model="reg.phone"
           pattern="(\d{3})-(\d{3})-(\d{4})">
-          <span ng-if="regForm.phone.$invalid && regForm.phone.$touched">
+          <span ng-if="regform.phone.$invalid && regform.phone.$touched">
             Phone must be in the format ###-###-####.
           </span>
           <p>Example: 123-456-7890</p>
@@ -36,6 +42,9 @@
           <input type="text" class="textcolor-black" name="favDish" placeholder="Your Favorite Dish Number"
             ng-model="reg.favdish"
             required>
+            <span ng-if="regform.favDish.$invalid && regform.favDish.$touched">
+              Must enter a favorite dish number.
+            </span>
             <p>Example: A1</p>
             <h3 ng-if="reg.fail">No such menu number exists</h3>
           <br>
