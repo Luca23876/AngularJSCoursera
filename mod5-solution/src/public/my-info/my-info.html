@@ -1,1 +1,22 @@
-<h1>hello</h1>
+<div class="container">
+  <h1>My Info</h1>
+  <div ng-if="!info.info.length">
+    <h3>Not Signed Up Yet.</h3>
+    <a ui-sref="public.signup"> Sign up Now!</a>
+  </div>
+  <div ng-if="info.info.length">
+    <h3>First Name:</h3>{{ info.fName }}
+    <br>
+    <h3>Last Name:</h3>{{ info.lName }}
+    <br>
+    <h3>Email:</h3>{{ info.email }}
+    <br>
+    <h3>Phone Number:</h3>{{ info.phone }}
+    <br>
+    <h3>Menu Item</h3>
+    <img width="250" height="150" ng-src="https://lcangular.herokuapp.com//images/{{info.menuItemShortName}}.jpg" alt="{{info.menuItemName}}">
+    <br>
+    {{ info.menuItemName }}
+    <p>description:</p>{{ info.menuItemDescription }}
+  </div>
+</div>
